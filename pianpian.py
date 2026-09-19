@@ -113,7 +113,7 @@ def finalcalc():
     precision()
     for i in range(1, 89):
         if st.session_state["score"][i] is not None:
-            print(
+            st.success(
                 f"{numbertonote(i)}: "
                 f"{st.session_state['score'][i]}"
             )
