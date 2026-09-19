@@ -91,6 +91,9 @@ def process_mp3(uploaded_file):
         sum(f0_valid) / len(f0_valid)
     )
     #st.session_state["keys"][position] = av
+    if position < 0 or position > 88:
+      print(f"위치: {position}")
+      return
     keys[position] = av
 
 def dataget():
