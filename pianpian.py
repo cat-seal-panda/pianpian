@@ -146,7 +146,7 @@ uploaded_files = st.file_uploader(
     type=["mp3"],
     accept_multiple_files=True
 )
-upload = st.button("데이터 업로드(OLD)")
+#upload = st.button("데이터 업로드(OLD)")
 if st.button("모든 MP3 데이터 업로드"):
     if not uploaded_files:
         st.error(
