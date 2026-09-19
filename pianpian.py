@@ -90,13 +90,8 @@ def process_mp3(uploaded_file):
     av = (
         sum(f0_valid) / len(f0_valid)
     )
-    st.session_state["keys"][position] = av
-    #'''st.success(
-    #    f"{filename} → "
-    #    f"{keyname} → "
-    #    f"{average_frequency:.4f} Hz → "
-    #    f"keys[{position}]"
-    #)'''
+    #st.session_state["keys"][position] = av
+    keys[position] = av
 
 def dataget():
   global keys, keyname,keyuploader
