@@ -78,7 +78,7 @@ def process_mp3(uploaded_file):
     keyname = filename[:-4]
     position =  keysbetween("A0", keyname) + 1
     f0, voiced_flag, voiced_prob = librosa.pyin(
-        y,
+        y, 
         fmin=librosa.note_to_hz("A0"),
         fmax=librosa.note_to_hz("C8")
     )
@@ -87,12 +87,13 @@ def process_mp3(uploaded_file):
         for x in f0
         if not math.isnan(float(x))
     ]
+    print(f"f0_valid:{f0_valid}")
     av = (
         sum(f0_valid) / len(f0_valid)
     )
     #st.session_state["keys"][position] = av
     if position < 0 or position > 88:
-      print(f"위치: {position}")
+      print(f"오류 - 위치: {position}")
       return
     keys[position] = av
 
@@ -113,9 +114,17 @@ def finalcalc():
     precision()
     for i in range(1, 89):
         if st.session_state["score"][i] is not None:
-            st.success(
-                f"{numbertonote(i)}: "
-                f"{st.session_state['score'][i]}"
+            sc = st.session_state["score"][i]
+            if max(math.log10(sc),math.log10(1/sc)) > 5:
+                st.error(
+                    f"{numbertonote(i)}: {max(math.log10(sc),math.log10(1/sc))}"
+                )
+            elif max(math.log10(sc),math.log10(1/sc)) > 1.2:
+                st.warning(
+                    f"{numbertonote(i)}: {max(math.log10(sc),math.log10(1/sc))}"
+                )
+            else: st.success(
+                f"{numbertonote(i)}: {max(math.log10(sc),math.log10(1/sc))}"
             )
 if "init" not in st.session_state:
   
@@ -133,7 +142,7 @@ else:
 REPEAT = 5
 CREAM = 100
 WHIP = 50
-CUSTARD = 1200
+CUSTARD = 400
 offval = {"C":1,"D":3,"E":5,"F":6,"G":8,"A":10,"B":12}
 resetvalue_ = 0
 multiplier = 1+(2*(1/12))
