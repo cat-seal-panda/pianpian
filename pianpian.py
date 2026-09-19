@@ -155,7 +155,7 @@ if st.button("모든 MP3 데이터 업로드"):
         process_mp3(uploaded_file)
 debugprintkeys = st.button("디버그: keys")
 if st.button("최종 결과,,"): finalcalc()
-if debugprintkeys: print(keys)
+if debugprintkeys: st.success(keys)
 #if upload: dataget()
 if "init" not in st.session_state:
     st.session_state["init"] = True
